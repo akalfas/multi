@@ -1,0 +1,7 @@
+version: v1.1.0
+
+steps:
+  - build:
+      -t {{.Run.Registry}}/multi-multi/aem:x64 --platform linux/amd64 .
+  - push:
+      - {{.Run.Registry}}/multi-multi/aem:x64

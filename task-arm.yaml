@@ -1,0 +1,7 @@
+version: v1.1.0
+
+steps:
+  - build:
+      -t {{.Run.Registry}}/multi-multi/aem:arm --platform linux/arm64/v8 .
+  - push:
+      - {{.Run.Registry}}/multi-multi/aem:arm

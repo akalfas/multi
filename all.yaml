@@ -1,0 +1,22 @@
+version: v1.1.0
+
+steps:
+  - build:
+      -t {{.Run.Registry}}/multi-multi/aem:arm --platform linux/arm64/v8 .
+  - push:
+      - {{.Run.Registry}}/multi-multi/aem:arm
+  - build:
+      -t {{.Run.Registry}}/multi-multi/aem:x64 --platform linux/amd64 .
+  - push:
+      - {{.Run.Registry}}/multi-multi/aem:x64
+  - cmd: >
+      docker manifest create 
+      {{.Run.Registry}}/multi-multi/aem:multi 
+      {{.Run.Registry}}/multi-multi/aem:arm 
+      {{.Run.Registry}}/multi-multi/aem:x64
+  - cmd: >
+      docker manifest push --purge {{.Run.Registry}}/multi-multi/aem:multi
+  - cmd: >
+      docker manifest inspect {{.Run.Registry}}/multi-multi/aem:multi
+      
+
